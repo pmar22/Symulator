@@ -17,12 +17,6 @@ namespace Symulator
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-
-            GetRequest gr = new GetRequest("http://www.weszlo.com");
-            gr.SetParameters("gl", "PL");
-            gr.SetParameters("hl", "PL");
-            Console.WriteLine(gr.GetFullUrl());
-            //gr.Execute();
         }
     }
 }
