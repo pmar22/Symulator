@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace Symulator
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private const String textPrefix = "http://";
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -67,25 +67,25 @@ namespace Symulator
             String addressHTTP = textBox1.Text;
             String requestType = listBox1.SelectedItem.ToString();
             Console.WriteLine("SELECTED METHOD: " + listBox1.SelectedItem.ToString());
-            RequestInterface request = createProperRequestObject(requestType, addressHTTP);
+            IRequest request = createProperRequestObject(requestType, addressHTTP);
             String nameParameter1 = textBox2.Text;
             String valueParameter1 = textBox3.Text;
-            request.SetParameters(nameParameter1, valueParameter1);
+            request.AddParameters(nameParameter1, valueParameter1);
             request.Execute();
             updateStatistics(request);
 
         }
 
-        private void updateStatistics(RequestInterface request)
+        private void updateStatistics(IRequest request)
         {
-            label8.Text = request.GetTimeExecution() + " s";
+            label8.Text = request.ExecutionTime + " s";
         }
 
-        private RequestInterface createProperRequestObject(String requestType, String addressHTTP) {
+        private IRequest createProperRequestObject(String requestType, String addressHTTP) {
             switch (requestType) {
                 case "GET": return new GetRequest(addressHTTP);
                 case "POST": return new PostRequest(addressHTTP);
-                case "HEAD": return new GetRequest(addressHTTP);
+                case "HEAD": throw new NotImplementedException();
                 default: return null; 
             }
         }

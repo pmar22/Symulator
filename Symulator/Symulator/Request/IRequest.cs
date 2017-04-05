@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Symulator
 {
-    interface RequestInterface
+    public interface IRequest
     {
         void Execute();
-        void SetParameters(String name, String value);
-        double GetTimeExecution();
-
+        void AddParameters(String name, String value);
+        double ExecutionTime { get; }
     }
 }
