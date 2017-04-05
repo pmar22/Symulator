@@ -84,7 +84,7 @@ namespace Symulator
         private RequestInterface createProperRequestObject(String requestType, String addressHTTP) {
             switch (requestType) {
                 case "GET": return new GetRequest(addressHTTP);
-                case "POST": return new GetRequest(addressHTTP);
+                case "POST": return new PostRequest(addressHTTP);
                 case "HEAD": return new GetRequest(addressHTTP);
                 default: return null; 
             }
