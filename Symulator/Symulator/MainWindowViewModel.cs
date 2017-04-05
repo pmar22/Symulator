@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace Symulator
         private string _lastExecutionTime;
         private string _nameParameter;
         private string _valueParameter;
+        private int _runXTimes;
 
         #endregion
 
@@ -86,6 +88,16 @@ namespace Symulator
             }
         }
 
+        public int RunXTimes
+        {
+            get { return _runXTimes; }
+            set
+            {
+                _runXTimes = value;
+                OnPropertyChanged("RunXTimes");
+            }
+        }
+
         MainForm Control { get; set; }
 
         #endregion
@@ -97,6 +109,7 @@ namespace Symulator
             Control = control;
             Request = ConstantNames.get;
             LastExecutionTime = "0 s";
+            RunXTimes = 1000;
         }
 
         #endregion
@@ -105,10 +118,16 @@ namespace Symulator
 
         public void DoRequest()
         {
-            IRequest request = CreateProperRequestObject(Request, Url);
-            request.AddParameters(NameParameter, ValueParameter);
-            request.Execute();
-            LastExecutionTime = request.ExecutionTime + " s";
+            var list = new List<double>();
+            for (var i = 0; i < RunXTimes; ++i)
+            {
+                IRequest request = CreateProperRequestObject(Request, Url);
+                request.AddParameters(NameParameter, ValueParameter);
+                request.Execute();
+                LastExecutionTime = request.ExecutionTime + " s";
+                list.Add(request.ExecutionTime);
+            }
+            ExportToXml(list);
         }
 
         #endregion
@@ -125,6 +144,26 @@ namespace Symulator
                 case "HEAD": throw new NotImplementedException();
                 default: return null;
             }
+        }
+
+        private void ExportToXml(List<double> list)
+        {
+            DataSet ds = new DataSet("New_DataSet");
+            DataTable dt = new DataTable("New_DataTable");
+            
+            ds.Locale = System.Threading.Thread.CurrentThread.CurrentCulture;
+            dt.Locale = System.Threading.Thread.CurrentThread.CurrentCulture;
+
+            dt.Columns.Add(ConstantNames.times);
+            foreach (var time in list)
+            {
+                var newRow = dt.NewRow();
+                newRow[ConstantNames.times] = time;
+                dt.Rows.Add(newRow);
+            }
+            ds.Tables.Add(dt);
+
+            ExcelLibrary.DataSetHelper.CreateWorkbook("MyExcelFile.xls", ds);
         }
 
         #endregion

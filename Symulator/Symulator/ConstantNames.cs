@@ -12,5 +12,6 @@ namespace Symulator
         internal const string get = "GET";
         internal const string post = "POST";
         internal const string head = "HEAD";
+        internal const string times = "Czasy";
     }
 }

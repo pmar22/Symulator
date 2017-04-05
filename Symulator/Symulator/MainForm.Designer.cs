@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.bindingSourceViewModel = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,6 +43,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
+            this.nudRunXTimes = new System.Windows.Forms.NumericUpDown();
+            this.bindingSourceViewModel = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.nudRunXTimes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceViewModel)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,10 +61,6 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(324, 43);
             this.listBox1.TabIndex = 0;
-            // 
-            // bindingSourceViewModel
-            // 
-            this.bindingSourceViewModel.DataSource = typeof(Symulator.MainWindowViewModel);
             // 
             // label1
             // 
@@ -178,11 +176,39 @@
             this.label8.TabIndex = 12;
             this.label8.Text = "0.0 s";
             // 
+            // nudRunXTimes
+            // 
+            this.nudRunXTimes.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.bindingSourceViewModel, "RunXTimes", true));
+            this.nudRunXTimes.Location = new System.Drawing.Point(303, 197);
+            this.nudRunXTimes.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nudRunXTimes.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudRunXTimes.Name = "nudRunXTimes";
+            this.nudRunXTimes.Size = new System.Drawing.Size(67, 20);
+            this.nudRunXTimes.TabIndex = 13;
+            this.nudRunXTimes.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // bindingSourceViewModel
+            // 
+            this.bindingSourceViewModel.DataSource = typeof(Symulator.MainWindowViewModel);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(486, 484);
+            this.Controls.Add(this.nudRunXTimes);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label7);
@@ -199,6 +225,7 @@
             this.Name = "MainForm";
             this.Text = "Symulator żądań";
             this.Load += new System.EventHandler(this.OnLoad);
+            ((System.ComponentModel.ISupportInitialize)(this.nudRunXTimes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceViewModel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -222,6 +249,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.BindingSource bindingSourceViewModel;
+        private System.Windows.Forms.NumericUpDown nudRunXTimes;
     }
 }
 
