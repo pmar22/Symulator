@@ -14,7 +14,7 @@ namespace Symulator
     {
         public PostRequest(String url) : base (url)
         {
-            _requestMethod = "POST";
+            _requestMethod = ConstantNames.post;
         }
 
         protected override void MakeRequest()

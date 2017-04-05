@@ -14,7 +14,7 @@ namespace Symulator
     {
         public GetRequest(String url) : base(url)
         {
-            _requestMethod = "GET";
+            _requestMethod = ConstantNames.get;
         }
 
         protected override void MakeRequest()
