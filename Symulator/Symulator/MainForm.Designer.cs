@@ -186,7 +186,7 @@
             0,
             0});
             this.nudRunXTimes.Minimum = new decimal(new int[] {
-            1,
+            100,
             0,
             0,
             0});
@@ -194,7 +194,7 @@
             this.nudRunXTimes.Size = new System.Drawing.Size(67, 20);
             this.nudRunXTimes.TabIndex = 13;
             this.nudRunXTimes.Value = new decimal(new int[] {
-            1,
+            100,
             0,
             0,
             0});

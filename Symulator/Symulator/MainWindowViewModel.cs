@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Symulator
 {
@@ -118,6 +119,12 @@ namespace Symulator
 
         public void DoRequest()
         {
+            if (!IsValidURI(Url))
+            {
+                MessageBox.Show("Podaj prawidłowy Url", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             var list = new List<double>();
             for (var i = 0; i < RunXTimes; ++i)
             {
@@ -131,8 +138,7 @@ namespace Symulator
         }
 
         #endregion
-
-
+        
         #region Private Methods
 
         private IRequest CreateProperRequestObject(String requestType, String addressHTTP)
@@ -149,12 +155,12 @@ namespace Symulator
         private void ExportToXml(List<double> list)
         {
             DataSet ds = new DataSet("New_DataSet");
-            DataTable dt = new DataTable("New_DataTable");
+            DataTable dt = new DataTable(ConstantNames.times);
             
             ds.Locale = System.Threading.Thread.CurrentThread.CurrentCulture;
             dt.Locale = System.Threading.Thread.CurrentThread.CurrentCulture;
 
-            dt.Columns.Add(ConstantNames.times);
+            dt.Columns.Add(ConstantNames.times, typeof(double));
             foreach (var time in list)
             {
                 var newRow = dt.NewRow();
@@ -162,8 +168,28 @@ namespace Symulator
                 dt.Rows.Add(newRow);
             }
             ds.Tables.Add(dt);
+            SaveToExcel(ds);
+        }
 
-            ExcelLibrary.DataSetHelper.CreateWorkbook("MyExcelFile.xls", ds);
+        private void SaveToExcel(DataSet ds)
+        {
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel File (*.xls)|*.xls|Excel File (*.xlsx*)|*.xlsx*";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ExcelLibrary.DataSetHelper.CreateWorkbook(saveFileDialog.FileName, ds);
+            }
+        }
+
+        public static bool IsValidURI(string uri)
+        {
+            if (!Uri.IsWellFormedUriString(uri, UriKind.Absolute))
+                return false;
+            Uri tmp;
+            if (!Uri.TryCreate(uri, UriKind.Absolute, out tmp))
+                return false;
+            return tmp.Scheme == Uri.UriSchemeHttp || tmp.Scheme == Uri.UriSchemeHttps;
         }
 
         #endregion
