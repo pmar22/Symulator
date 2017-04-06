@@ -50,6 +50,11 @@ namespace Symulator
             ViewModel.DoRequest();
         }
 
+        private void btnRunPredefinedTest_Click(object sender, EventArgs e)
+        {
+            ViewModel.RunPredefinedTest();
+        }
+
         #endregion
     }
 }

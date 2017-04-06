@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Symulator.PredefinedTests;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
@@ -34,6 +36,7 @@ namespace Symulator
         private string _nameParameter;
         private string _valueParameter;
         private int _runXTimes;
+        private BasePredefineTest _selectedPredefineTest;
 
         #endregion
 
@@ -99,6 +102,18 @@ namespace Symulator
             }
         }
 
+        public ObservableCollection<BasePredefineTest> PredefinedTests { get; set; }
+
+        public BasePredefineTest SelectedPredefineTest
+        {
+            get { return _selectedPredefineTest; }
+            set
+            {
+                _selectedPredefineTest = value;
+                OnPropertyChanged("SelectedPredefineTest");
+            }
+        }
+
         MainForm Control { get; set; }
 
         #endregion
@@ -111,6 +126,11 @@ namespace Symulator
             Request = ConstantNames.get;
             LastExecutionTime = "0 s";
             RunXTimes = 1000;
+
+            PredefinedTests = new ObservableCollection<BasePredefineTest>();
+            PredefinedTests.Add(new OpenMovieDatabasePredefinedTest("Zapytania do ombdapi.com"));
+
+            SelectedPredefineTest = PredefinedTests[0];
         }
 
         #endregion
@@ -137,8 +157,17 @@ namespace Symulator
             ExportToXml(list);
         }
 
+
+        public void RunPredefinedTest()
+        {
+            if (SelectedPredefineTest != null)
+            {
+                SaveToExcel(SelectedPredefineTest.RunTest());
+            }
+        }
+
         #endregion
-        
+
         #region Private Methods
 
         private IRequest CreateProperRequestObject(String requestType, String addressHTTP)

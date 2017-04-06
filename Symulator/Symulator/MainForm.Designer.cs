@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.bindingSourceViewModel = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,9 +45,14 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.nudRunXTimes = new System.Windows.Forms.NumericUpDown();
-            this.bindingSourceViewModel = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.nudRunXTimes)).BeginInit();
+            this.groupBoxPredefinedTests = new System.Windows.Forms.GroupBox();
+            this.btnRunPredefinedTest = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.predefinedTestsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceViewModel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRunXTimes)).BeginInit();
+            this.groupBoxPredefinedTests.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.predefinedTestsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // listBox1
@@ -61,6 +67,10 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(324, 43);
             this.listBox1.TabIndex = 0;
+            // 
+            // bindingSourceViewModel
+            // 
+            this.bindingSourceViewModel.DataSource = typeof(Symulator.MainWindowViewModel);
             // 
             // label1
             // 
@@ -199,15 +209,51 @@
             0,
             0});
             // 
-            // bindingSourceViewModel
+            // groupBoxPredefinedTests
             // 
-            this.bindingSourceViewModel.DataSource = typeof(Symulator.MainWindowViewModel);
+            this.groupBoxPredefinedTests.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.groupBoxPredefinedTests.Controls.Add(this.btnRunPredefinedTest);
+            this.groupBoxPredefinedTests.Controls.Add(this.comboBox1);
+            this.groupBoxPredefinedTests.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.groupBoxPredefinedTests.Location = new System.Drawing.Point(0, 407);
+            this.groupBoxPredefinedTests.Name = "groupBoxPredefinedTests";
+            this.groupBoxPredefinedTests.Size = new System.Drawing.Size(485, 77);
+            this.groupBoxPredefinedTests.TabIndex = 14;
+            this.groupBoxPredefinedTests.TabStop = false;
+            this.groupBoxPredefinedTests.Text = "Predefiniowane Testy";
+            // 
+            // btnRunPredefinedTest
+            // 
+            this.btnRunPredefinedTest.Location = new System.Drawing.Point(377, 36);
+            this.btnRunPredefinedTest.Name = "btnRunPredefinedTest";
+            this.btnRunPredefinedTest.Size = new System.Drawing.Size(97, 35);
+            this.btnRunPredefinedTest.TabIndex = 1;
+            this.btnRunPredefinedTest.Text = "Wykonaj";
+            this.btnRunPredefinedTest.UseVisualStyleBackColor = true;
+            this.btnRunPredefinedTest.Click += new System.EventHandler(this.btnRunPredefinedTest_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.bindingSourceViewModel, "SelectedPredefineTest", true));
+            this.comboBox1.DataSource = this.predefinedTestsBindingSource;
+            this.comboBox1.DisplayMember = "TestName";
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(6, 36);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(364, 32);
+            this.comboBox1.TabIndex = 0;
+            // 
+            // predefinedTestsBindingSource
+            // 
+            this.predefinedTestsBindingSource.DataMember = "PredefinedTests";
+            this.predefinedTestsBindingSource.DataSource = this.bindingSourceViewModel;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(486, 484);
+            this.Controls.Add(this.groupBoxPredefinedTests);
             this.Controls.Add(this.nudRunXTimes);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.button1);
@@ -222,11 +268,16 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
             this.Text = "Symulator żądań";
             this.Load += new System.EventHandler(this.OnLoad);
-            ((System.ComponentModel.ISupportInitialize)(this.nudRunXTimes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceViewModel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRunXTimes)).EndInit();
+            this.groupBoxPredefinedTests.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.predefinedTestsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,6 +301,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.BindingSource bindingSourceViewModel;
         private System.Windows.Forms.NumericUpDown nudRunXTimes;
+        private System.Windows.Forms.GroupBox groupBoxPredefinedTests;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button btnRunPredefinedTest;
+        private System.Windows.Forms.BindingSource predefinedTestsBindingSource;
     }
 }
 
