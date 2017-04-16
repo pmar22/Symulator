@@ -49,6 +49,8 @@
             this.btnRunPredefinedTest = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.predefinedTestsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cbShowChart = new System.Windows.Forms.CheckBox();
+            this.cbExportToExcel = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceViewModel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudRunXTimes)).BeginInit();
             this.groupBoxPredefinedTests.SuspendLayout();
@@ -248,11 +250,35 @@
             this.predefinedTestsBindingSource.DataMember = "PredefinedTests";
             this.predefinedTestsBindingSource.DataSource = this.bindingSourceViewModel;
             // 
+            // cbShowChart
+            // 
+            this.cbShowChart.AutoSize = true;
+            this.cbShowChart.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.bindingSourceViewModel, "ShowChart", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbShowChart.Location = new System.Drawing.Point(201, 200);
+            this.cbShowChart.Name = "cbShowChart";
+            this.cbShowChart.Size = new System.Drawing.Size(99, 17);
+            this.cbShowChart.TabIndex = 15;
+            this.cbShowChart.Text = "Generuj wykres";
+            this.cbShowChart.UseVisualStyleBackColor = true;
+            // 
+            // cbExportToExcel
+            // 
+            this.cbExportToExcel.AutoSize = true;
+            this.cbExportToExcel.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.bindingSourceViewModel, "ExportToExcel", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbExportToExcel.Location = new System.Drawing.Point(90, 200);
+            this.cbExportToExcel.Name = "cbExportToExcel";
+            this.cbExportToExcel.Size = new System.Drawing.Size(105, 17);
+            this.cbExportToExcel.TabIndex = 16;
+            this.cbExportToExcel.Text = "Export do excela";
+            this.cbExportToExcel.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(486, 484);
+            this.Controls.Add(this.cbExportToExcel);
+            this.Controls.Add(this.cbShowChart);
             this.Controls.Add(this.groupBoxPredefinedTests);
             this.Controls.Add(this.nudRunXTimes);
             this.Controls.Add(this.label8);
@@ -305,6 +331,8 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button btnRunPredefinedTest;
         private System.Windows.Forms.BindingSource predefinedTestsBindingSource;
+        private System.Windows.Forms.CheckBox cbShowChart;
+        private System.Windows.Forms.CheckBox cbExportToExcel;
     }
 }
 

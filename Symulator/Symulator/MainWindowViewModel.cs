@@ -1,4 +1,5 @@
-﻿using Symulator.PredefinedTests;
+﻿using Charts;
+using Symulator.PredefinedTests;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -37,6 +38,8 @@ namespace Symulator
         private string _valueParameter;
         private int _runXTimes;
         private BasePredefineTest _selectedPredefineTest;
+        private bool _exportToExcel;
+        private bool _showChart;
 
         #endregion
 
@@ -102,6 +105,26 @@ namespace Symulator
             }
         }
 
+        public bool ExportToExcel
+        {
+            get { return _exportToExcel; }
+            set
+            {
+                _exportToExcel = value;
+                OnPropertyChanged("ExportToExcel");
+            }
+        }
+
+        public bool ShowChart
+        {
+            get { return _showChart; }
+            set
+            {
+                _showChart = value;
+                OnPropertyChanged("ShowChart");
+            }
+        }
+
         public ObservableCollection<BasePredefineTest> PredefinedTests { get; set; }
 
         public BasePredefineTest SelectedPredefineTest
@@ -126,6 +149,8 @@ namespace Symulator
             Request = ConstantNames.get;
             LastExecutionTime = "0 s";
             RunXTimes = 1000;
+            ExportToExcel = false;
+            ShowChart = true;
 
             PredefinedTests = new ObservableCollection<BasePredefineTest>();
             PredefinedTests.Add(new OpenMovieDatabasePredefinedTest("Zapytania do ombdapi.com"));
@@ -154,7 +179,16 @@ namespace Symulator
                 LastExecutionTime = request.ExecutionTime + " s";
                 list.Add(request.ExecutionTime);
             }
-            ExportToXml(list);
+
+            if (ExportToExcel)
+            {
+                ExportToXml(list);
+            }
+
+            if (ShowChart)
+            {
+                var chart = new LineChart(list);
+            }
         }
 
 
@@ -162,7 +196,16 @@ namespace Symulator
         {
             if (SelectedPredefineTest != null)
             {
-                SaveToExcel(SelectedPredefineTest.RunTest());
+                var result = SelectedPredefineTest.RunTest();
+                if (ExportToExcel)
+                {
+                    SaveToExcel(result);
+                }
+
+                if (ShowChart)
+                {
+                    var chart = new LineChart(result);
+                }
             }
         }
 
