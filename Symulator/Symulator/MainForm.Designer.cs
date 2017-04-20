@@ -41,7 +41,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.nudRunXTimes = new System.Windows.Forms.NumericUpDown();
@@ -159,15 +158,6 @@
             this.label6.TabIndex = 9;
             this.label6.Text = "Czas odpowiedzi: ";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(38, 292);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(143, 13);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "Liczba przesłanych danych: ";
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(376, 194);
@@ -283,7 +273,6 @@
             this.Controls.Add(this.nudRunXTimes);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -322,7 +311,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.BindingSource bindingSourceViewModel;
