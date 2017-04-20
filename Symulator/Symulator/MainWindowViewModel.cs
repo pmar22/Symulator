@@ -148,13 +148,15 @@ namespace Symulator
             Control = control;
             Request = ConstantNames.get;
             LastExecutionTime = "0 s";
-            RunXTimes = 1000;
+            RunXTimes = 100;
             ExportToExcel = false;
             ShowChart = true;
 
             PredefinedTests = new ObservableCollection<BasePredefineTest>();
             PredefinedTests.Add(new OpenMovieDatabasePredefinedTest("Zapytania do ombdapi.com"));
-
+            PredefinedTests.Add(new GuardianPredefinedTest("Zapytania do content.guardianapis.com"));
+            PredefinedTests.Add(new UniversityPredefinedTest("Zapytania do universities.hipolabs.com"));
+            PredefinedTests.Add(new WikipediaPredefinedTest("Zapytania do en.wikipedia.org"));
             SelectedPredefineTest = PredefinedTests[0];
         }
 
@@ -196,7 +198,7 @@ namespace Symulator
         {
             if (SelectedPredefineTest != null)
             {
-                var result = SelectedPredefineTest.RunTest();
+                var result = SelectedPredefineTest.RunTest(RunXTimes);
                 if (ExportToExcel)
                 {
                     SaveToExcel(result);

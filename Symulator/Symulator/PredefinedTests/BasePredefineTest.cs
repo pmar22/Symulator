@@ -16,6 +16,6 @@ namespace Symulator.PredefinedTests
             TestName = testName;
         }
 
-        public abstract DataSet RunTest();
+        public abstract DataSet RunTest(int RunXTimes);
     }
 }

@@ -59,7 +59,10 @@
     </Compile>
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="PredefinedTests\BasePredefineTest.cs" />
+    <Compile Include="PredefinedTests\GuardianPredefinedTest.cs" />
     <Compile Include="PredefinedTests\OpenMovieDatabasePredefinedTest.cs" />
+    <Compile Include="PredefinedTests\UniversityPredefinedTest.cs" />
+    <Compile Include="PredefinedTests\WikipediaPredefinedTest.cs" />
     <Compile Include="Request\BaseRequest.cs" />
     <Compile Include="Request\GetRequest.cs" />
     <Compile Include="Program.cs" />
