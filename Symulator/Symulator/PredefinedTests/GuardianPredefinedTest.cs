@@ -9,7 +9,7 @@ namespace Symulator.PredefinedTests
 {
     public class GuardianPredefinedTest : BasePredefineTest
     {
-        public GuardianPredefinedTest(string name) : base(name)
+        public GuardianPredefinedTest(string name) : base(name, "http://content.guardianapis.com")
         {
         }
 
@@ -55,6 +55,11 @@ namespace Symulator.PredefinedTests
             ds.Tables.Add(dt);
 
             return ds;
+        }
+
+        protected override void MakeRequest()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -14,6 +14,23 @@ namespace Symulator
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+
+        #region Fields
+
+        private string _request;
+        private string _url;
+        private string _lastExecutionTime;
+        private string _nameParameter;// Do usunięcia
+        private string _valueParameter;//Do usunięcia
+        private string _postMethodData;
+        Dictionary<String, String> _methodGetParameters;//Trzeba tutaj przechowywać aktualne parametry dla GET czyli odpowiedni PredefinedTests.parameters(jest to robione w refreshDataFields i w konstruktorze), albo wczytywać z GUI z odpowiednich pól(trzeba zrobić)
+        private int _runXTimes;
+        private PredefinedTest _selectedPredefineTest;
+        private bool _exportToExcel;
+        private bool _showChart;
+   
+        #endregion
+
         #region INotifyPropertyCHnaged
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -29,19 +46,6 @@ namespace Symulator
 
         #endregion
 
-        #region Fields
-
-        private string _request;
-        private string _url;
-        private string _lastExecutionTime;
-        private string _nameParameter;
-        private string _valueParameter;
-        private int _runXTimes;
-        private BasePredefineTest _selectedPredefineTest;
-        private bool _exportToExcel;
-        private bool _showChart;
-
-        #endregion
 
         #region Properties
 
@@ -95,6 +99,16 @@ namespace Symulator
             }
         }
 
+        public string PostMethodData
+        {
+            get { return _postMethodData; }
+            set
+            {
+                _postMethodData = value;
+                OnPropertyChanged("PostMethodData");
+            }
+        }
+
         public int RunXTimes
         {
             get { return _runXTimes; }
@@ -125,9 +139,9 @@ namespace Symulator
             }
         }
 
-        public ObservableCollection<BasePredefineTest> PredefinedTests { get; set; }
+        public ObservableCollection<PredefinedTest> PredefinedTests { get; set; }
 
-        public BasePredefineTest SelectedPredefineTest
+        public PredefinedTest SelectedPredefineTest
         {
             get { return _selectedPredefineTest; }
             set
@@ -141,6 +155,7 @@ namespace Symulator
 
         #endregion
 
+
         #region ctor
 
         public MainWindowViewModel(MainForm control)
@@ -151,13 +166,15 @@ namespace Symulator
             RunXTimes = 100;
             ExportToExcel = false;
             ShowChart = true;
-
-            PredefinedTests = new ObservableCollection<BasePredefineTest>();
-            PredefinedTests.Add(new OpenMovieDatabasePredefinedTest("Zapytania do ombdapi.com"));
-            PredefinedTests.Add(new GuardianPredefinedTest("Zapytania do content.guardianapis.com"));
-            PredefinedTests.Add(new UniversityPredefinedTest("Zapytania do universities.hipolabs.com"));
-            PredefinedTests.Add(new WikipediaPredefinedTest("Zapytania do en.wikipedia.org"));
+            PredefinedTests = new ObservableCollection<PredefinedTest>();
+           // PredefinedTests = new ObservableCollection<BasePredefineTest>();
+            initPredefiniedTests();
+           // PredefinedTests.Add(new OpenMovieDatabasePredefinedTest("Zapytania do ombdapi.com"));
+           // PredefinedTests.Add(new GuardianPredefinedTest("Zapytania do content.guardianapis.com"));
+           // PredefinedTests.Add(new UniversityPredefinedTest("Zapytania do universities.hipolabs.com"));
+            //PredefinedTests.Add(new WikipediaPredefinedTest("Zapytania do en.wikipedia.org"));
             SelectedPredefineTest = PredefinedTests[0];
+            _methodGetParameters = PredefinedTests[0].parameters;
         }
 
         #endregion
@@ -173,13 +190,17 @@ namespace Symulator
             }
 
             var list = new List<double>();
+            String FullUrl = Url;
+            if (Request.Equals("GET") || Request.Equals("HEAD")) {
+                FullUrl = bindRequestUrlwithParameters();
+            }
+            IRequest request = CreateProperRequestObject(Request, FullUrl);
             for (var i = 0; i < RunXTimes; ++i)
             {
-                IRequest request = CreateProperRequestObject(Request, Url);
-                request.AddParameters(NameParameter, ValueParameter);
                 request.Execute();
                 LastExecutionTime = request.ExecutionTime + " s";
                 list.Add(request.ExecutionTime);
+
             }
 
             if (ExportToExcel)
@@ -192,9 +213,41 @@ namespace Symulator
                 var chart = new LineChart(list);
             }
         }
+        public void refreshDataFields(int SelectedPredefinedTestIndex) {
+            if (SelectedPredefinedTestIndex>=0) {
+                _selectedPredefineTest = PredefinedTests[SelectedPredefinedTestIndex];
+                foreach (KeyValuePair<string, string> entry in _selectedPredefineTest.parameters)
+                {
+                    NameParameter = entry.Key;//Do poprawy - zamiast dwóch zmiennych musi być jakaś kolekcja przechowująca wyświetlane nazwy i wartości dla GET i HEAD
+                    ValueParameter = entry.Value;
+                }
+                Url = _selectedPredefineTest.BaseUrl;
+
+            }
+            _methodGetParameters = _selectedPredefineTest.parameters;
+        }
 
 
-        public void RunPredefinedTest()
+        private String bindRequestUrlwithParameters()
+        {
+            String result = "";
+            int i = 0;
+            foreach (String name in _methodGetParameters.Keys) {
+                String value = _methodGetParameters[name];
+                if (i == 0)
+                    result += name + "=" + value;
+                else
+                    result += "&" + name + "=" + value;
+                i++;
+            }
+            if (result.Length > 0)
+                return _url + "?" + result;
+            else
+                return result;
+        }
+        
+
+       /* public void RunPredefinedTest()
         {
             if (SelectedPredefineTest != null)
             {
@@ -209,11 +262,28 @@ namespace Symulator
                     var chart = new LineChart(result);
                 }
             }
-        }
+        }*/
 
         #endregion
 
         #region Private Methods
+
+        private void initPredefiniedTests()
+        {
+            PredefinedTest WikipediaTest = new PredefinedTest("Zapytania do Wikipedia", "http://en.wikipedia.org/w/api.php");
+            WikipediaTest.parameters.Add("action", "query");
+            WikipediaTest.parameters.Add("titles", "Poland");
+            WikipediaTest.parameters.Add("prop", "revisions");
+            WikipediaTest.parameters.Add("rvprop", "content");
+            WikipediaTest.parameters.Add("format", "json");
+            PredefinedTests.Add(WikipediaTest);
+            PredefinedTest GuardianTest = new PredefinedTest("Zapytania do Guardian", "http://content.guardianapis.com/tags");
+            GuardianTest.parameters.Add("page-size", "5");
+            GuardianTest.parameters.Add("q", "football");
+            GuardianTest.parameters.Add("api-key", "test");
+            PredefinedTests.Add(GuardianTest);
+        }
+
 
         private IRequest CreateProperRequestObject(String requestType, String addressHTTP)
         {

@@ -9,7 +9,7 @@ namespace Symulator.PredefinedTests
 {
     class WikipediaPredefinedTest : BasePredefineTest
     {
-        public WikipediaPredefinedTest(string name) : base(name)
+        public WikipediaPredefinedTest(string name) : base(name, "https://en.wikipedia.org/w/api.php")
         {
         }
 
@@ -43,6 +43,11 @@ namespace Symulator.PredefinedTests
             ds.Tables.Add(dt);
 
             return ds;
+        }
+
+        protected override void MakeRequest()
+        {
+            throw new NotImplementedException();
         }
     }
 }

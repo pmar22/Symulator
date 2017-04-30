@@ -84,7 +84,6 @@ namespace Symulator
                 _executionTime = 0;
             }
         }
-
         public void AddParameters(string name, string value)
         {
             if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(value))

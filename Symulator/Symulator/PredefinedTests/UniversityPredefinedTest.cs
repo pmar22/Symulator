@@ -9,7 +9,7 @@ namespace Symulator.PredefinedTests
 {
     class UniversityPredefinedTest : BasePredefineTest
     {
-        public UniversityPredefinedTest(string name) : base(name)
+        public UniversityPredefinedTest(string name) : base(name, "http://universities.hipolabs.com/search")
         {
         }
         public override DataSet RunTest(int RunXTimes)
@@ -54,6 +54,11 @@ namespace Symulator.PredefinedTests
             ds.Tables.Add(dt);
 
             return ds;
+        }
+
+        protected override void MakeRequest()
+        {
+            throw new NotImplementedException();
         }
     }
 }

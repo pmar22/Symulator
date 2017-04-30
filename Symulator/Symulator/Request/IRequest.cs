@@ -9,7 +9,6 @@ namespace Symulator
     public interface IRequest
     {
         void Execute();
-        void AddParameters(String name, String value);
         double ExecutionTime { get; }
     }
 }

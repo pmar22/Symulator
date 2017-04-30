@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace Symulator.PredefinedTests
 {
-    public abstract class BasePredefineTest
+    public abstract class BasePredefineTest : BaseRequest
     {
         public string TestName { get; set; }
-
-        public BasePredefineTest(string testName)
+        internal BasePredefineTest(string testName, String url) : base(url)
         {
             TestName = testName;
         }

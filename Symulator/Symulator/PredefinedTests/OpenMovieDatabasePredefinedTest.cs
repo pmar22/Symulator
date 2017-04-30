@@ -9,7 +9,7 @@ namespace Symulator.PredefinedTests
 {
     public class OpenMovieDatabasePredefinedTest : BasePredefineTest
     {
-        public OpenMovieDatabasePredefinedTest(string name) : base(name)
+        public OpenMovieDatabasePredefinedTest(string name) : base(name, "http://www.omdbapi.com")
         {
         }
 
@@ -69,6 +69,11 @@ namespace Symulator.PredefinedTests
             }
             ds.Tables.Add(dt);
             return ds;
+        }
+
+        protected override void MakeRequest()
+        {
+            throw new NotImplementedException();
         }
     }
 }

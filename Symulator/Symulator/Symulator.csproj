@@ -61,6 +61,7 @@
     <Compile Include="PredefinedTests\BasePredefineTest.cs" />
     <Compile Include="PredefinedTests\GuardianPredefinedTest.cs" />
     <Compile Include="PredefinedTests\OpenMovieDatabasePredefinedTest.cs" />
+    <Compile Include="PredefinedTests\PredefinedTest.cs" />
     <Compile Include="PredefinedTests\UniversityPredefinedTest.cs" />
     <Compile Include="PredefinedTests\WikipediaPredefinedTest.cs" />
     <Compile Include="Request\BaseRequest.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Request\PostRequest.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -82,6 +84,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\MainForm.datasource" />
+    <None Include="Properties\DataSources\MainWindowViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -100,6 +104,9 @@
       <Project>{f0a65c19-ba3d-4ce4-8df1-7e9338a8a570}</Project>
       <Name>Charts</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
