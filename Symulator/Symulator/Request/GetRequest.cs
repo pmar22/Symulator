@@ -30,6 +30,8 @@ namespace Symulator
                 reader.Close();
                 dataStream.Close();
             }
+
+
         }
     }
 }

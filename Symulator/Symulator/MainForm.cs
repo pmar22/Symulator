@@ -90,7 +90,7 @@ namespace Symulator
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedItem != null)
+           /* if (listBox1.SelectedItem != null)
             {
                 switch (listBox1.SelectedItem.ToString())
                 {
@@ -107,7 +107,7 @@ namespace Symulator
                         showGetProperties();
                         break;
                 }
-            }
+            }*/
         }
 
         private void hideGetProperties() {
@@ -116,22 +116,22 @@ namespace Symulator
             label4.Visible = false;
             textBox3.Visible = false;
         }
-        private void showGetProperties()
+     /*   private void showGetProperties()
         {
             label3.Visible = true;
             textBox2.Visible = true;
             label4.Visible = true;
             textBox3.Visible = true;
-        }
+        }*/
         private void showPostProperties() {
-            textBox4.Visible = true;
-            label9.Visible = true;
-            textBox4.Location = new Point(127, 53);
+            //textBox4.Visible = true;
+            //label9.Visible = true;
+            //textBox4.Location = new Point(127, 53);
         }
         private void hidePostProperties()
         {
-            textBox4.Visible = false;
-            label9.Visible = false;
+            //textBox4.Visible = false;
+           // label9.Visible = false;
         }
         private void label6_Click(object sender, EventArgs e)
         {

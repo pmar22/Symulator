@@ -22,8 +22,7 @@ namespace Symulator
         private string _lastExecutionTime;
         private string _nameParameter;// Do usunięcia
         private string _valueParameter;//Do usunięcia
-        private string _postMethodData;
-        Dictionary<String, String> _methodGetParameters;//Trzeba tutaj przechowywać aktualne parametry dla GET czyli odpowiedni PredefinedTests.parameters(jest to robione w refreshDataFields i w konstruktorze), albo wczytywać z GUI z odpowiednich pól(trzeba zrobić)
+        Dictionary<String, String> _requestsParameters;//Trzeba tutaj przechowywać aktualne parametry, czyli odpowiedni PredefinedTests.parameters(jest to robione w refreshDataFields i w konstruktorze), albo wczytywać z GUI z odpowiednich pól(trzeba zrobić)
         private int _runXTimes;
         private PredefinedTest _selectedPredefineTest;
         private bool _exportToExcel;
@@ -99,16 +98,6 @@ namespace Symulator
             }
         }
 
-        public string PostMethodData
-        {
-            get { return _postMethodData; }
-            set
-            {
-                _postMethodData = value;
-                OnPropertyChanged("PostMethodData");
-            }
-        }
-
         public int RunXTimes
         {
             get { return _runXTimes; }
@@ -174,7 +163,7 @@ namespace Symulator
            // PredefinedTests.Add(new UniversityPredefinedTest("Zapytania do universities.hipolabs.com"));
             //PredefinedTests.Add(new WikipediaPredefinedTest("Zapytania do en.wikipedia.org"));
             SelectedPredefineTest = PredefinedTests[0];
-            _methodGetParameters = PredefinedTests[0].parameters;
+            _requestsParameters = PredefinedTests[0].parameters;
         }
 
         #endregion
@@ -192,7 +181,8 @@ namespace Symulator
             var list = new List<double>();
             String FullUrl = Url;
             if (Request.Equals("GET") || Request.Equals("HEAD")) {
-                FullUrl = bindRequestUrlwithParameters();
+                String parameters = prepareParameters();
+                FullUrl = bindRequestUrlwithParameters(parameters);
             }
             IRequest request = CreateProperRequestObject(Request, FullUrl);
             for (var i = 0; i < RunXTimes; ++i)
@@ -224,28 +214,33 @@ namespace Symulator
                 Url = _selectedPredefineTest.BaseUrl;
 
             }
-            _methodGetParameters = _selectedPredefineTest.parameters;
+            _requestsParameters = _selectedPredefineTest.parameters;
         }
 
 
-        private String bindRequestUrlwithParameters()
+        private String bindRequestUrlwithParameters(String parameters)
         {
+            String FullUrl;
+            if (parameters.Length > 0)
+                FullUrl = _url + "?" + parameters;
+            else
+                FullUrl = parameters;
+            return FullUrl;
+        }
+        private String prepareParameters() {
             String result = "";
             int i = 0;
-            foreach (String name in _methodGetParameters.Keys) {
-                String value = _methodGetParameters[name];
+            foreach (String name in _requestsParameters.Keys)
+            {
+                String value = _requestsParameters[name];
                 if (i == 0)
                     result += name + "=" + value;
                 else
                     result += "&" + name + "=" + value;
                 i++;
             }
-            if (result.Length > 0)
-                return _url + "?" + result;
-            else
-                return result;
+            return result;
         }
-        
 
        /* public void RunPredefinedTest()
         {
@@ -290,7 +285,7 @@ namespace Symulator
             switch (requestType)
             {
                 case "GET": return new GetRequest(addressHTTP);
-                case "POST": return new PostRequest(addressHTTP);
+                case "POST": return new PostRequest(addressHTTP, prepareParameters());
                 case "HEAD": throw new NotImplementedException();
                 default: return null;
             }

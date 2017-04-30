@@ -51,8 +51,6 @@
             this.cbShowChart = new System.Windows.Forms.CheckBox();
             this.cbExportToExcel = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceViewModel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudRunXTimes)).BeginInit();
             this.groupBoxPredefinedTests.SuspendLayout();
@@ -288,32 +286,11 @@
             this.label7.Text = "Ustawienia";
             this.label7.Click += new System.EventHandler(this.label7_Click_1);
             // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(84, 98);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(324, 84);
-            this.textBox4.TabIndex = 18;
-            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(87, 53);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(33, 13);
-            this.label9.TabIndex = 19;
-            this.label9.Text = "Dane";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(486, 484);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cbExportToExcel);
             this.Controls.Add(this.cbShowChart);
@@ -369,8 +346,6 @@
         private System.Windows.Forms.CheckBox cbShowChart;
         private System.Windows.Forms.CheckBox cbExportToExcel;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.BindingSource predefinedTestsBindingSource;
     }
 }
