@@ -9,6 +9,7 @@ namespace Symulator
     internal class ConstantNames
     {
         internal const string textPrefix = "http://";
+        internal const string textPrefixHTTPS = "https://";
         internal const string get = "GET";
         internal const string post = "POST";
         internal const string head = "HEAD";

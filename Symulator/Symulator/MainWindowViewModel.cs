@@ -265,7 +265,7 @@ namespace Symulator
 
         private void initPredefiniedTests()
         {
-            PredefinedTest WikipediaTest = new PredefinedTest("Zapytania do Wikipedia", "http://en.wikipedia.org/w/api.php");
+            PredefinedTest WikipediaTest = new PredefinedTest("Zapytania do Wikipedia", "https://en.wikipedia.org/w/api.php");
             WikipediaTest.parameters.Add("action", "query");
             WikipediaTest.parameters.Add("titles", "Poland");
             WikipediaTest.parameters.Add("prop", "revisions");

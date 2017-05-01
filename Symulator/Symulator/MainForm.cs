@@ -39,7 +39,7 @@ namespace Symulator
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (!textBox1.Text.StartsWith(ConstantNames.textPrefix))
+            if (!textBox1.Text.StartsWith(ConstantNames.textPrefix) && !textBox1.Text.StartsWith(ConstantNames.textPrefixHTTPS))
             {
                 textBox1.Text = ConstantNames.textPrefix;
                 textBox1.SelectionStart = textBox1.Text.Length;
@@ -90,24 +90,6 @@ namespace Symulator
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           /* if (listBox1.SelectedItem != null)
-            {
-                switch (listBox1.SelectedItem.ToString())
-                {
-                    case "GET":
-                        hidePostProperties();
-                        showGetProperties();
-                        break;
-                    case "POST":
-                        hideGetProperties();
-                        showPostProperties();
-                        break;
-                    case "HEAD":
-                        hidePostProperties();
-                        showGetProperties();
-                        break;
-                }
-            }*/
         }
 
         private void hideGetProperties() {
@@ -116,22 +98,10 @@ namespace Symulator
             label4.Visible = false;
             textBox3.Visible = false;
         }
-     /*   private void showGetProperties()
-        {
-            label3.Visible = true;
-            textBox2.Visible = true;
-            label4.Visible = true;
-            textBox3.Visible = true;
-        }*/
         private void showPostProperties() {
-            //textBox4.Visible = true;
-            //label9.Visible = true;
-            //textBox4.Location = new Point(127, 53);
         }
         private void hidePostProperties()
         {
-            //textBox4.Visible = false;
-           // label9.Visible = false;
         }
         private void label6_Click(object sender, EventArgs e)
         {
