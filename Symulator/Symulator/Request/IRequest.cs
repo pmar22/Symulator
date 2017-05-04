@@ -10,5 +10,7 @@ namespace Symulator
     {
         void Execute();
         double ExecutionTime { get; }
+
+        Dictionary<string,string> Parameters { get; set; }
     }
 }

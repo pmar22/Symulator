@@ -13,17 +13,15 @@ namespace Symulator
 {
     public class PostRequest : BaseRequest, IRequest
     {
-        private String _postMethodData;
-        public PostRequest(String url, String postData) : base (url)
+        public PostRequest(String url) : base (url)
         {
             _requestMethod = ConstantNames.post;
-            _postMethodData = postData;
         }
 
         protected override void MakeRequest()
         {
              var request = (HttpWebRequest)WebRequest.Create(_mainUrl);
-             var data = Encoding.ASCII.GetBytes(_postMethodData);
+             var data = Encoding.ASCII.GetBytes(ParametersString);
              request.Method = _requestMethod;
              request.ContentType = "application/x-www-form-urlencoded";
              request.ContentLength = data.Length;

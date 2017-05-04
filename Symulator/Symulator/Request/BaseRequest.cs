@@ -15,7 +15,6 @@ namespace Symulator
         #region Fields
 
         protected String _mainUrl;
-        protected String _parameters;
         protected double _executionTime;
         protected string _requestMethod;
 
@@ -27,12 +26,18 @@ namespace Symulator
         {
             get
             {
-                if (_parameters.Length == 0)
+                if (!Parameters.Any())
                     return _mainUrl;
-                else if (_mainUrl[_mainUrl.Length - 1] == '/')
-                    return _mainUrl + "?" + _parameters;
                 else
-                    return _mainUrl + "/" + "?" + _parameters;
+                    return _mainUrl + "?" + ParametersString;
+            }
+        }
+
+        public string ParametersString
+        {
+            get
+            {
+                return string.Join("&", Parameters.Select(x => x.Key + "=" + x.Value).ToArray());
             }
         }
 
@@ -44,6 +49,8 @@ namespace Symulator
             }
         }
 
+        public Dictionary<string, string> Parameters { get; set; }
+
         #endregion
 
         #region ctor
@@ -51,7 +58,7 @@ namespace Symulator
         internal BaseRequest(String url)
         {
             this._mainUrl = url;
-            this._parameters = "";
+            this.Parameters = new Dictionary<string, string>();
             _executionTime = 0;
         }
 
@@ -82,16 +89,6 @@ namespace Symulator
             {
                 MessageBox.Show("Podaj prawidłowy adres URL", "Błąd adresu", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 _executionTime = 0;
-            }
-        }
-        public void AddParameters(string name, string value)
-        {
-            if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(value))
-            {
-                if (_parameters.Length == 0)
-                    _parameters += name + "=" + value;
-                else
-                    _parameters += "&" + name + "=" + value;
             }
         }
 
