@@ -215,7 +215,11 @@ namespace Symulator
             });
             parametersDetails.Show();
         }
-
+        public void OpenParametersPostWindow(Test test)
+        {
+            var parametersDetails = new ParametersPostDetails(test);;
+            parametersDetails.Show();
+        }
         #endregion
 
         #region Private Methods

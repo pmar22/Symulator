@@ -12,6 +12,7 @@ namespace Symulator
         internal const string textPrefixHTTPS = "https://";
         internal const string get = "GET";
         internal const string post = "POST";
+        internal const string postJSON = "POST(JSON)";
         internal const string head = "HEAD";
         internal const string times = "Czasy";
     }

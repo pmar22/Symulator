@@ -30,7 +30,6 @@ namespace Symulator
         #region Fields
 
         private Dictionary<string, string> _parameters;
-
         #endregion
 
         #region Properties
@@ -47,9 +46,19 @@ namespace Symulator
         {
             get
             {
-                return string.Join("&", Parameters.Select(x => x.Key + "=" + x.Value).ToArray());
+                if (ConstantNames.postJSON.Equals(Method))
+                {
+                    return ParametersJSON;
+                }
+                else
+                {
+                    return string.Join("&", Parameters.Select(x => x.Key + "=" + x.Value).ToArray());
+                }
             }
         }
+
+        public string ParametersJSON
+        { get; set; }
 
         public Dictionary<string,string> Parameters
         {
@@ -109,8 +118,12 @@ namespace Symulator
                 case "POST":
                     request = new PostRequest(MainUrl);
                     break;
+                case "POST(JSON)":
+                    request = new PostJSONRequest(MainUrl, ParametersJSON);
+                    break;
                 case "HEAD":
-                    throw new NotImplementedException();
+                    request = new Request.HeadRequest(MainUrl);
+                    break;
             }
 
             request.Parameters = Parameters;

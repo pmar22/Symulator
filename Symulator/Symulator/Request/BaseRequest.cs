@@ -17,7 +17,7 @@ namespace Symulator
         protected String _mainUrl;
         protected double _executionTime;
         protected string _requestMethod;
-
+        protected string _dataJSON;
         #endregion
 
         #region Properties

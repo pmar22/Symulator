@@ -142,6 +142,7 @@
             this.colMethod.Items.AddRange(new object[] {
             "GET",
             "POST",
+            "POST(JSON)",
             "HEAD"});
             this.colMethod.Name = "colMethod";
             this.colMethod.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -278,11 +279,11 @@
         private System.Windows.Forms.CheckBox cbShowChart;
         private System.Windows.Forms.BindingSource predefinedTestsBindingSource;
         private System.Windows.Forms.Label labelProgres;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTestName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colRunXTimes;
-        private System.Windows.Forms.DataGridViewComboBoxColumn colMethod;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colMainUrl;
         private System.Windows.Forms.DataGridViewButtonColumn colParameters;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colMainUrl;
+        private System.Windows.Forms.DataGridViewComboBoxColumn colMethod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colRunXTimes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTestName;
     }
 }
 

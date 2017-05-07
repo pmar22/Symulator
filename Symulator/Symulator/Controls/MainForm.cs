@@ -136,9 +136,14 @@ namespace Symulator
 
         private void gvTests_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == colParameters.Index)
+            String method = ((Test)gvTests.CurrentRow.DataBoundItem).Method;
+            if (e.ColumnIndex == colParameters.Index && !ConstantNames.postJSON.Equals(method))
             {
                 ViewModel.OpenParametersWindow((Test)gvTests.CurrentRow.DataBoundItem);
+            }
+            else if (e.ColumnIndex == colParameters.Index && ConstantNames.postJSON.Equals(method))
+            {
+                ViewModel.OpenParametersPostWindow((Test)gvTests.CurrentRow.DataBoundItem);
             }
         }
 
